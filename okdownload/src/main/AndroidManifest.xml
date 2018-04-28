@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.liulishuo.okdownload">
+
+    <application>
+        <provider
+            android:name=".OkDownloadProvider"
+            android:authorities="${applicationId}.com.liulishuo.okdownload"
+            android:exported="false"/>
+    </application>
+</manifest>

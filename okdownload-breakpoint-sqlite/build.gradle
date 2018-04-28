@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    lintOptions {
+        textOutput 'stdout'
+        textReport true
+        lintConfig file('lint.xml')
+    }
+
+    dexOptions {
+        preDexLibraries = !rootProject.ext.isCi
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+    }
+}
+
+dependencies {
+    testImplementation dep.junit
+    testImplementation dep.mockito
+    testImplementation dep.assertj
+    testImplementation dep.robolectric
+    testImplementation project(':okdownload')
+    
+    implementation dep.supportAnnotations
+
+    compileOnly project(':okdownload')
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
+apply from: rootProject.file('gradle/codecov.gradle')

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/VideoSyncApp/VideoSyncApp.iml" filepath="$PROJECT_DIR$/VideoSyncApp/VideoSyncApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VideoSyncDemo.iml" filepath="$PROJECT_DIR$/VideoSyncDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/filedownload/filedownload.iml" filepath="$PROJECT_DIR$/filedownload/filedownload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Library_KSYPlayer/ksyplayer.iml" filepath="$PROJECT_DIR$/Library_KSYPlayer/ksyplayer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okdownload/okdownload.iml" filepath="$PROJECT_DIR$/okdownload/okdownload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okdownload-connection-okhttp/okhttp.iml" filepath="$PROJECT_DIR$/okdownload-connection-okhttp/okhttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okdownload-breakpoint-sqlite/sqlite.iml" filepath="$PROJECT_DIR$/okdownload-breakpoint-sqlite/sqlite.iml" />
+    </modules>
+  </component>
+</project>

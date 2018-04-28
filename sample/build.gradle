@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+        targetCompatibility rootProject.ext.targetCompatibilityVersion
+    }
+
+    lintOptions {
+        lintConfig file('lint.xml')
+        textOutput 'stdout'
+        textReport true
+    }
+
+    defaultConfig {
+        applicationId "com.liulishuo.okdownload.sample"
+        // using 19, because we demo for content-uri(CATEGORY_OPENABLE)
+        minSdkVersion 19
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile rootProject.file('keystore')
+            storePassword 'okdownload'
+            keyAlias 'okdownload'
+            keyPassword 'okdownload'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation dep.kotlin
+    //noinspection GradleDependency source code is not available on 26
+    implementation dep.supportDesign
+    //noinspection GradleDependency source code is not available on 26
+    implementation dep.supportV7
+    // Appcompat-v7 (only Anko Commons)
+    implementation dep.ankoSdk
+    implementation dep.ankoV7Commons
+    // Appcompat-v7 (Anko Layouts)
+    implementation dep.ankoV7
+    implementation dep.ankoSdk25Coroutines
+    implementation dep.ankoCoroutines
+    // CardView-v7
+    implementation dep.ankoCardviewV7
+    //noinspection GradleDependency
+    implementation dep.supportCardview
+    // Design
+    implementation dep.ankoDesign
+    implementation dep.ankoDesignCoroutines
+    // RecyclerView-v7
+    implementation dep.ankoRecyclerviewV7
+    implementation dep.ankoRecyclerviewV7Coroutines
+    implementation dep.kotlinxCoroutines
+    implementation dep.supportConstraintLayout
+    testImplementation dep.junit
+    implementation project(':okdownload')
+    implementation project(':sqlite')
+    implementation project(':okhttp')
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

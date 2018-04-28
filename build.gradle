@@ -1,0 +1,67 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: rootProject.file('gradle/dependencies.gradle')
+
+subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+    }
+    repositories {
+        mavenCentral()
+    }
+
+    plugins.apply('checkstyle')
+
+    task('checkstyle', type: Checkstyle) {
+        configFile rootProject.file('checkstyle.xml')
+        source 'src/main/java'
+        source 'src/test/java'
+        ignoreFailures false
+        showViolations true
+        include '**/*.java'
+
+        classpath = files()
+    }
+
+    group = GROUP
+    version = VERSION_NAME
+
+    afterEvaluate {
+        tasks.findByName('check').dependsOn('checkstyle')
+    }
+
+    checkstyle {
+        toolVersion = '6.18'
+    }
+}
+
+buildscript {
+    ext.kotlin_version = '1.1.51'
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.30"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

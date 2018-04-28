@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.lichens.licht.videosyncdemo"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // Mqtt client : Eclipse Paho
+    compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+    // EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation project(':ksyplayer')
+    implementation dep.kotlin
+    //noinspection GradleDependency source code is not available on 26
+    implementation dep.supportDesign
+    //noinspection GradleDependency source code is not available on 26
+    implementation dep.supportV7
+    // Appcompat-v7 (only Anko Commons)
+    implementation dep.ankoSdk
+    implementation dep.ankoV7Commons
+    // Appcompat-v7 (Anko Layouts)
+    implementation dep.ankoV7
+    implementation dep.ankoSdk25Coroutines
+    implementation dep.ankoCoroutines
+    // CardView-v7
+    implementation dep.ankoCardviewV7
+    //noinspection GradleDependency
+    implementation dep.supportCardview
+    // Design
+    implementation dep.ankoDesign
+    implementation dep.ankoDesignCoroutines
+    // RecyclerView-v7
+    implementation dep.ankoRecyclerviewV7
+    implementation dep.ankoRecyclerviewV7Coroutines
+    implementation dep.kotlinxCoroutines
+    implementation dep.supportConstraintLayout
+    testImplementation dep.junit
+    implementation project(':okdownload')
+    implementation project(':okhttp')
+    implementation project(':sqlite')
+}

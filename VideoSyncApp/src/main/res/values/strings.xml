@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">VideoSyncDemo</string>
+    <string name="serial">serial</string>
+    <string name="parallel">parallel</string>
+    <string name="start">start</string>
+    <string name="delete_files">delete</string>
+    <string name="cancel">cancel</string>
+    <string name="priority">priority</string>
+    <string name="state_idle">idle</string>
+    <string name="state_pending">pending</string>
+    <string name="state_running">running</string>
+    <string name="state_unknown">unkonw</string>
+</resources>

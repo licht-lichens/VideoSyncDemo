@@ -1,0 +1,8 @@
+rootProject.name = 'VideoSyncDemo'
+
+include ':VideoSyncApp', ':ksyplayer', ':filedownload', ':sqlite', ':okdownload', ':okhttp', ':sample'
+
+
+project(':okhttp').projectDir = new File(settingsDir, 'okdownload-connection-okhttp')
+project(':sqlite').projectDir = new File(settingsDir, 'okdownload-breakpoint-sqlite')
+project(':ksyplayer').projectDir = new File(settingsDir, 'Library_KSYPlayer')
