@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'org.greenrobot.greendao' //greenDao在第二行插入
 
 
@@ -41,5 +42,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile 'org.greenrobot:greendao:3.2.2'//依赖 在最后一行插入
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version" //依赖 在最后一行插入
+}
+repositories {
+    mavenCentral()
 }
