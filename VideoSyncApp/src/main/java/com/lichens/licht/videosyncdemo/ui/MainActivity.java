@@ -1,18 +1,28 @@
 package com.lichens.licht.videosyncdemo.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.ksyun.media.player.IMediaPlayer;
 import com.ksyun.media.player.KSYMediaPlayer;
 import com.ksyun.media.player.KSYTextureView;
 import com.lichens.licht.videosyncdemo.R;
 import com.lichens.licht.videosyncdemo.mqtt.MqttManager;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.io.IOException;
 
 
@@ -32,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int mVideoWidth;
     private int mVideoHeight;
-    private IMediaPlayer.OnPreparedListener mOnPreparedListener1 = new IMediaPlayer.OnPreparedListener() {
+    private IMediaPlayer.OnPreparedListener mOnPreparedListener = new IMediaPlayer.OnPreparedListener() {
         @Override
         public void onPrepared(IMediaPlayer mp) {
             Log.e("VideoPlayer", "OnPrepared");
@@ -137,43 +147,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);// 隐藏标题
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);// 设置全屏
+
         setContentView(R.layout.activity_main);
-        Log.e(TAG, "isConnected: ");
-        mVideoView = (KSYTextureView) findViewById(R.id.activity_one_player);
+        //检查文件权限
+        checkPermission();
+        //texture
+        mVideoView = (KSYTextureView) findViewById(R.id.activity_ksy_player);
+        //设置屏幕常亮
         mVideoView.setKeepScreenOn(true);
+        //多媒体音量控制
         this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        //播放器的状态监听
         mVideoView.setOnBufferingUpdateListener(mOnBufferingUpdateListener);
         mVideoView.setOnCompletionListener(mOnCompletionListener);
-
-        mVideoView.setOnPreparedListener(mOnPreparedListener1);
-
+        mVideoView.setOnPreparedListener(mOnPreparedListener);
         mVideoView.setOnInfoListener(mOnInfoListener);
         mVideoView.setOnVideoSizeChangedListener(mOnVideoSizeChangeListener);
         mVideoView.setOnErrorListener(mOnErrorListener);
         mVideoView.setOnSeekCompleteListener(mOnSeekCompletedListener);
+        //设置屏幕常亮
         mVideoView.setScreenOnWhilePlaying(true);
-
+        //缓冲时间
         mVideoView.setBufferTimeMax(300.0f);
-
+        //超时时间
         mVideoView.setTimeout(5, 30);
+        //翻转角度
         mVideoView.setRotateDegree(90);
+        //循环播放
+        mVideoView.setLooping(true);
         //硬解264&265
-        Log.e(TAG, "Hardware !!!!!!!!");
         mVideoView.setDecodeMode(KSYMediaPlayer.KSYDecodeMode.KSY_DECODE_MODE_AUTO);
 
         try {
+            //获取播放路径
             String url = "file://sdcard/Download/notad.mp4";
             mVideoView.setDataSource(url);
-            Log.e(TAG, "Hardware !!!!!!!!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //准备播放
         mVideoView.prepareAsync();
+
+
+        connectMqtt();
 
 
         findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
@@ -233,11 +258,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void connectMqtt() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean b = MqttManager.getInstance().creatConnect(URL, userName, password, clientId);
+
+                if (b) {
+
+                    if(MqttManager.getInstance().subscribe("test", 2)){
+                        Log.e(TAG, "注册成功");
+                    }else{
+                        Log.e(TAG, "");
+                    }
+
+
+                }else{
+                    Log.e(TAG, "连接失败");
+                }
+            }
+        }).start();
+
+
+    }
+
     /**
      * 订阅接收到的消息
-     * 这里的Event类型可以根据需要自定义, 这里只做基础的演示
-     *
-     * @param message
+     * <p>
+     * 处理server端的命令
      */
     @Subscribe
     public void onEvent(MqttMessage message) {
@@ -261,5 +309,28 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    //权限检查
+    private void checkPermission() {
+        //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            //用户已经拒绝过一次，再次弹出权限申请对话框需要给用户一个解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission
+                    .WRITE_EXTERNAL_STORAGE)) {
+                Toast.makeText(this, "请开通相关权限，否则无法正常使用本应用！", Toast.LENGTH_SHORT).show();
+            }
+            //申请权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 00);
+
+        } else {
+            Log.e(TAG, "checkPermission: 已经授权！");
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Log.e(TAG, "授权成功!" + requestCode);
+    }
 
 }
