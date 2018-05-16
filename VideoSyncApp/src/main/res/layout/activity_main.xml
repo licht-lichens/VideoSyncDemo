@@ -27,6 +27,17 @@
         android:layout_marginRight="10dp"
         android:background="@mipmap/signal_bad" />
 
+    <EditText
+        android:id="@+id/clientID"
+        android:textStyle="normal"
+        android:gravity="center_horizontal"
+        android:textColor="@color/red"
+        android:inputType="number"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:text="视频信息:"
-            android:textColor="@color/write" />
+            android:textColor="@color/red" />
 
         <TextView
             android:id="@+id/offset"
@@ -47,7 +58,7 @@
             android:layout_margin="5dp"
             android:layout_height="wrap_content"
             android:text="delay:"
-            android:textColor="@color/write" />
+            android:textColor="@color/red" />
     </LinearLayout>
 
 

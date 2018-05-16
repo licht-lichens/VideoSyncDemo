@@ -5,15 +5,22 @@ import android.content.pm.PackageManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.text.TextUtils
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import com.lichens.licht.videosyncdemo.mqtt.MqttManager
 import com.lichens.licht.videosyncdemo.utils.LogUtils
+import com.lichens.licht.videosyncdemo.utils.SharePrefUtil
 import org.greenrobot.eventbus.EventBus
 
- abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     private var TAG = "Activity"
+    private val URL = "tcp://192.168.3.116:1883"
+    private val userName = "userName"
+    private val password = "password"
+    private var clientId = "clientId_02"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +30,8 @@ import org.greenrobot.eventbus.EventBus
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         //检查文件权限
         checkPermission()
+        if (!TextUtils.isEmpty(SharePrefUtil.getString("CLIENTID")))
+            clientId = SharePrefUtil.getString("CLIENTID")
     }
 
     //权限检查
@@ -48,10 +57,11 @@ import org.greenrobot.eventbus.EventBus
     }
 
 
-
     override fun onResume() {
         super.onResume()
 
+        //连接mqtt
+        connectMqtt()
         //注册eventbus
         EventBus.getDefault().register(this)
     }
@@ -61,4 +71,21 @@ import org.greenrobot.eventbus.EventBus
         //解注册eventbus
         EventBus.getDefault().unregister(this)
     }
+
+    /**
+     * 连接mqtt 注册频道
+     */
+    private fun connectMqtt() {
+        //如果连接成功  则注册test频道
+        Thread(Runnable {
+            if (MqttManager.getInstance().creatConnect(URL, userName, password, clientId) && MqttManager.getInstance().subscribe("test", 2)) {
+                mqttConnectSuccess()
+            } else {
+                mqttConnectError()
+            }
+        }).start()
+    }
+
+    abstract fun mqttConnectSuccess()
+    abstract fun mqttConnectError()
 }
