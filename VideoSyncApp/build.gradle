@@ -22,6 +22,7 @@ android {
 
 dependencies {
     // Mqtt client : Eclipse Paho
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
     // EventBus
     compile 'org.greenrobot:eventbus:3.0.0'

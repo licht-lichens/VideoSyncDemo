@@ -34,15 +34,15 @@ public class QueueController {
 
         final DownloadContext.Builder builder = set.commit();
 
-        String url = "http://192.168.3.93:8080/DataServer/notad.mp4";
+        String url = "http://192.168.3.116:8080/DataServer/notad.mp4";
         DownloadTask boundTask = builder.bind(url);
         TagUtil.saveTaskName(boundTask, "1. WeChat");
 
-        url = "http://192.168.3.93:8080/DataServer/15.mp4";
+        url = "http://192.168.3.116:8080/DataServer/15.mp4";
         boundTask = builder.bind(url);
         TagUtil.saveTaskName(boundTask, "2. LiuLiShuo");
 
-        url = "http://192.168.3.93:8080/DataServer/4K.mp4";
+        url = "http://192.168.3.116:8080/DataServer/4K.mp4";
         boundTask = builder.bind(url);
         TagUtil.saveTaskName(boundTask, "3. Alipay");
 

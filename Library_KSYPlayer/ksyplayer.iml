@@ -123,14 +123,14 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 24 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="__local_aars__:G.\2018\videoSync\VideoSyncDemo\Library_KSYPlayer\libs\libksystat.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-annotations:24.1.1@jar" level="project" />
-    <orderEntry type="library" name="__local_aars__:/Users/licht/Desktop/VideoSyncDemo/Library_KSYPlayer/libs/libksystat.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-vector-drawable-24.1.1" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-24.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-core:1.3@jar" level="project" />
-    <orderEntry type="library" name="__local_aars__:/Users/licht/Desktop/VideoSyncDemo/Library_KSYPlayer/libs/libksyplayer.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.2.31@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:G.\2018\videoSync\VideoSyncDemo\Library_KSYPlayer\libs\libksyplayer.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-24.1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-24.1.1" level="project" />

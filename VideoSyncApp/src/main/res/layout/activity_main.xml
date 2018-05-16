@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,35 +9,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        tools:targetApi="ice_cream_sandwich"/>
+        tools:targetApi="ice_cream_sandwich" />
+
+    <Button
+        android:id="@+id/publish_message"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Publish"
+        android:textAllCaps="false" />
+
+    <ImageView
+        android:id="@+id/signal_state"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:background="@mipmap/signal_bad" />
 
     <LinearLayout
-        android:layout_width="100dp"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
         android:orientation="vertical">
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Connect" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:text="Publish" />
+            android:layout_margin="5dp"
+            android:text="视频信息:"
+            android:textColor="@color/write" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/offset"
+            android:layout_width="100dp"
+            android:layout_margin="5dp"
             android:layout_height="wrap_content"
-            android:text="Subscribe" />
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Disconnect" />
+            android:text="delay:"
+            android:textColor="@color/write" />
     </LinearLayout>
+
 
 </FrameLayout>
